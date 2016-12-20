@@ -71,11 +71,10 @@ DecisionTree::importance(std::vector<char> attributes,
     double max = -1.0;
     char attribute;
     for(int i = 0; i < attributes.size(); i++) {
-        
+        // Select attribute with greatest info gain
         if(infoGain(attributes[i], examples) > max) {
             max = infoGain(attributes[i], examples);
-            attribute = attributes[i];
-            
+            attribute = attributes[i]; 
         }
     }
     return attribute;
@@ -92,6 +91,7 @@ DecisionTree::plurality_value(std::vector<std::string> examples) {
 void
 DecisionTree::init(const std::vector<std::string> examples) {
     std::vector<char> attributes;
+    // Generate attributes based on #cols, excluding label
     for(int i = 0; i < examples[0].size()-1;i++) {
         char attribute = 'A' + i;
         attributes.push_back(attribute);
@@ -120,21 +120,14 @@ DecisionTree::add(Node* root, Node* node, int label) {
 Node*
 DecisionTree::generateTree(std::vector<std::string> examples,
         std::vector<char> attributes, std::vector<std::string> parent_examples) {
-    
+    // Decision tree learning algorithm
     if(examples.empty()) {
-        
-        return new Node(plurality_value(parent_examples));
-        
+        return new Node(plurality_value(parent_examples));    
     } else if(sameClassification(examples)) {
-        
         return new Node(examples[0][examples[0].size()-1]);
-        
     } else if(attributes.size() == 0) {
-        
        return new Node(plurality_value(examples));
-        
     } else {
-        
         char attribute = importance(attributes, examples);
         Node* tree = new Node(attribute);
         int column = int(attribute - 'A');        
