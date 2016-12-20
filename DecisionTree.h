@@ -1,6 +1,6 @@
 /* 
  * File:   DecisionTree.h
- * Author: JuliusHigiro
+ * Author: Julius Higiro
  *
  * Created on November 27, 2016, 12:41 PM
  */
@@ -19,11 +19,9 @@
 class Node {
 
 public:
-
     char value;
     Node* left;
     Node* right;
-    
     Node(char v):value(v) {
         left = NULL;
         right = NULL;
